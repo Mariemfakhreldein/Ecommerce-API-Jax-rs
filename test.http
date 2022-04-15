@@ -1,0 +1,81 @@
+GET /rest/api/employees 
+Host: localhost:8080
+
+###
+POST /rest/api/employees
+Host: localhost:8080
+Content-Type: custom/type
+
+Employee [id=5, name=mariem, salary=10]
+
+###
+GET /rest/api/date/tomorrow
+Host: localhost:8080
+
+###
+GET /rest/api/categories/1
+Host: localhost:8080
+
+###
+POST /rest/api/categories
+Host: localhost:8080
+Content-Type: applicatoin/json
+
+{"name":"testCategory"}
+
+###
+GET /rest/api/products
+Host: localhost:8080
+
+###
+POST /rest/api/products
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "name":"product1",
+    "description":"test product",
+    "price":500
+}
+
+
+
+
+
+
+###
+GET /rest/api/users
+Host: localhost:8080
+
+
+###
+POST /rest/api/users
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "firstName":"mariem",
+    "lastName":"mohamed",
+    "email":"mariem@gmail.com",
+    "role":"CUSTOMER"
+}
+
+
+
+###
+PUT /rest/api/users/153
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "firstName":"XXXXXXXXXXXX",
+    "lastName":"mohamed",
+    "email":"mariem@gmail.com"
+}
+
+
+
+###
+DELETE /rest/api/users/153
+Host: localhost:8080
+Content-Type: application/json
