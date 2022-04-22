@@ -73,39 +73,35 @@ public class ProductController {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-    
-    
-
     @GET
     @Path("{pid}")
-    public Response getProductById(@PathParam("pid") int productId) {
-
-        EntityManager em = JpaUtil.createEntityManager();
-        ProductRepository pr = new ProductRepository(em);
-
-        Optional<Product> optionalRequestedProduct = pr.findOne(productId);
+    public Response getProductById(@PathParam("pid") int productId, @Context UriInfo uriInfo) throws MyCustomException {
 
         System.out.println("ID: " + productId);
 
-        if (optionalRequestedProduct.isPresent()) {
-            System.out.println(optionalRequestedProduct.get());
-            return Response.ok().entity(optionalRequestedProduct.get()).build();
-        } else {
-            System.out.println("++++++++++++++not found");
-            return Response.noContent().build();
+        try{
+
+            ProductResponseDto requestedProduct = ProductService.getProductById(productId, uriInfo);
+
+            return Response.ok().entity(requestedProduct).build();
+        } catch ( Exception e ){
+           throw new MyCustomException( e, "No product with this id" );
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @PUT
     @Path("{pid}")

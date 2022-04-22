@@ -2,6 +2,7 @@ package gov.iti.jets.domain.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import gov.iti.jets.domain.dtos.product.ProductRequestDto;
 import gov.iti.jets.domain.dtos.product.ProductResponseDto;
@@ -45,4 +46,17 @@ public class ProductService {
         System.out.println("product added!!");
     }
 
+    public static ProductResponseDto getProductById( int productId , UriInfo uriInfo) {
+
+        EntityManager em = JpaUtil.createEntityManager();
+        ProductRepository pr = new ProductRepository(em);
+        Optional<Product>  optionalProduct = pr.findOne(productId);
+        if(optionalProduct.isPresent()){
+            return ProductMapper.mapProductToProductResponse( optionalProduct.get(), uriInfo );
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+
+    }
 }

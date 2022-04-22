@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import gov.iti.jets.api.controllers.CategoryController;
 import gov.iti.jets.api.controllers.ProductController;
 import gov.iti.jets.domain.dtos.product.ProductCategory;
 import gov.iti.jets.domain.dtos.product.ProductResponseDto;
@@ -17,7 +18,7 @@ public class ProductMapper {
 
         ProductResponseDto mappedProduct = new ProductResponseDto(inputProduct.getId(), inputProduct.getName(), inputProduct.getDescription(), inputProduct.getPrice());
         
-        mappedProduct.setCategories(productCategoryMapper(inputProduct.getCategories()));
+        mappedProduct.setCategories(productCategoryMapper(inputProduct.getCategories(), uriInfo));
 
 
         String selfUri = uriInfo.getAbsolutePathBuilder().path(ProductController.class).path(Long.toString(mappedProduct.getId())).build().toString();
@@ -27,11 +28,14 @@ public class ProductMapper {
         return mappedProduct;
     }
 
-    private static List<ProductCategory> productCategoryMapper(Set<Category> inputCategories){
+    private static List<ProductCategory> productCategoryMapper(Set<Category> inputCategories, UriInfo uriInfo){
 
         List<ProductCategory> mappedCategories = new ArrayList<>();
         inputCategories.forEach(category ->{
-            mappedCategories.add(new ProductCategory(category.getId(), category.getName()));
+            String selfUri = uriInfo.getBaseUriBuilder().path( CategoryController.class).path(Long.toString( category.getId())).build().toString();
+            ProductCategory mappedProductCategory = new ProductCategory(category.getId(), category.getName());
+            mappedProductCategory.addLink( selfUri, "self" );
+            mappedCategories.add(mappedProductCategory);
         });
         return mappedCategories;
     }

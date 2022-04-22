@@ -33,6 +33,11 @@ Host: localhost:8080
 GET /rest/api/products
 Host: localhost:8181
 
+###
+GET /rest/api/products/1
+Host: localhost:8181
+
+
 
 ###
 POST /rest/api/products
