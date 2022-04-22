@@ -5,8 +5,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import gov.iti.jets.api.adapters.LinkJsonbAdapter;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.ws.rs.core.Link;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,6 +25,7 @@ public class ProductResponseDto implements Serializable{
     @XmlElement(name = "category")
     private List<ProductCategory> categories;
 
+    @JsonbTypeAdapter(LinkJsonbAdapter.class)
     List<Link> links = new ArrayList<>();
     
     public ProductResponseDto(int id, String name, String description, BigDecimal price) {

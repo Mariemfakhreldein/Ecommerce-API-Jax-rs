@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.iti.jets.api.adapters.LinkJsonbAdapter;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
+import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.ws.rs.core.Link;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -17,6 +19,7 @@ public class ProductsListResponseDto implements Serializable{
 
     private List<ProductResponseDto> productList;
 
+    @JsonbTypeAdapter(LinkJsonbAdapter.class)
     private List<Link> links = new ArrayList<>();
 
     public ProductsListResponseDto(List<ProductResponseDto> productList) {
@@ -48,6 +51,11 @@ public class ProductsListResponseDto implements Serializable{
     public void addLink(String uri, String rel){
         Link link = Link.fromUri(uri).rel(rel).build();
         links.add(link);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductsListResponseDto [links=" + links + ", productList=" + productList + "]";
     }
     
 }

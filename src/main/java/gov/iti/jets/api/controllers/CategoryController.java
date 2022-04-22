@@ -44,6 +44,7 @@ public class CategoryController {
     @POST
     public Response addNewCategory(CategoryRequestDto newCategory) {
 
+        System.out.println(newCategory);
         EntityManager em = JpaUtil.createEntityManager();
         CategoryRepository cr = new CategoryRepository(em);
 
@@ -56,7 +57,7 @@ public class CategoryController {
             em.close();
             return Response.ok().entity(category).build();
         } catch (Exception e) {
-            return Response.notModified().build();
+            return Response.notModified().entity("error").build();
         }
 
     }

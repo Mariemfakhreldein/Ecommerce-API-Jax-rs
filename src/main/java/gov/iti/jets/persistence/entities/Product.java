@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.NaturalId;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,8 +25,13 @@ public class Product {
     @Id
     @GeneratedValue
     private int id;
+
+    @NaturalId
     private String name;
+    
     private String description;
+
+    @Basic(optional = false)
     private BigDecimal price;
 
     @ManyToMany(cascade = CascadeType.ALL)

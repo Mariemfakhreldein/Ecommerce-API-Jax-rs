@@ -27,20 +27,34 @@ Content-Type: applicatoin/json
 GET /rest/api/products
 Host: localhost:8080
 
+
+
+###
+GET /rest/api/products
+Host: localhost:8181
+
+
 ###
 POST /rest/api/products
 Host: localhost:8080
 Content-Type: application/json
 
 {
-    "name":"product1",
+    "name":"product2",
     "description":"test product",
     "price":500
 }
 
+###
+POST /rest/api/products
+Host: localhost:8181
+Content-Type: application/json
 
-
-
+{
+    "name":"product2",
+    "description":"test product",
+    "price":500
+}
 
 
 ###
