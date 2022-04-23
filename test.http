@@ -40,13 +40,13 @@ Host: localhost:8181
 
 
 ###
-DELETE /rest/api/products/1/categories/1
+POST /rest/api/products/1/categories/1
 Host: localhost:8181
 
 
 
 ###
-POST /rest/api/products
+POST /rest/api/products/1
 Host: localhost:8080
 Content-Type: application/json
 
@@ -57,7 +57,7 @@ Content-Type: application/json
 }
 
 ###
-POST /rest/api/products
+PUT /rest/api/products/1
 Host: localhost:8181
 Content-Type: application/json
 

@@ -10,6 +10,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -68,9 +69,9 @@ public class Category {
         return ( (Category) o ).getId() == (this.id);
     }
 
-
     @Override
     public int hashCode() {
-        return id * 12345;
+        return Objects.hash( id );
     }
+
 }

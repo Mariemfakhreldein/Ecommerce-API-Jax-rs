@@ -30,7 +30,7 @@ public class Product {
     @Basic(optional = false)
     private BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @XmlElementWrapper
     @XmlElement(name = "category")
     private Set<Category> categories;
