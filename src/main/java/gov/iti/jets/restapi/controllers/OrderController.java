@@ -1,4 +1,4 @@
-package gov.iti.jets.api.controllers;
+package gov.iti.jets.restapi.controllers;
 
 import java.util.Optional;
 

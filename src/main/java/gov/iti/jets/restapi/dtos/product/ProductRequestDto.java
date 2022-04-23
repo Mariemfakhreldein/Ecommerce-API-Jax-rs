@@ -1,4 +1,4 @@
-package gov.iti.jets.api.dtos.product;
+package gov.iti.jets.restapi.dtos.product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

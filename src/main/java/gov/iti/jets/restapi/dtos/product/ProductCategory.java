@@ -1,10 +1,10 @@
-package gov.iti.jets.api.dtos.product;
+package gov.iti.jets.restapi.dtos.product;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import gov.iti.jets.api.adapters.LinkJsonbAdapter;
+import gov.iti.jets.restapi.adapters.LinkJsonbAdapter;
 import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.ws.rs.core.Link;
 import jakarta.xml.bind.annotation.XmlRootElement;

@@ -1,6 +1,6 @@
-package gov.iti.jets.api.exceptionmappers;
+package gov.iti.jets.restapi.exceptionmappers;
 
-import gov.iti.jets.api.dtos.ExceptionMessage;
+import gov.iti.jets.restapi.dtos.ExceptionMessage;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.ext.ExceptionMapper;

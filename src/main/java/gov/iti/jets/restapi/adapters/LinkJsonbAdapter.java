@@ -1,9 +1,9 @@
-package gov.iti.jets.api.adapters;
+package gov.iti.jets.restapi.adapters;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import gov.iti.jets.api.dtos.AdaptedLink;
+import gov.iti.jets.restapi.dtos.AdaptedLink;
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.ws.rs.core.Link;
 

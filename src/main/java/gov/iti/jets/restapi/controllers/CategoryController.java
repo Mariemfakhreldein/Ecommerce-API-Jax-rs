@@ -1,6 +1,6 @@
-package gov.iti.jets.api.controllers;
+package gov.iti.jets.restapi.controllers;
 
-import gov.iti.jets.api.dtos.category.CategoryRequestDto;
+import gov.iti.jets.restapi.dtos.category.CategoryRequestDto;
 import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.persistence.repositories.CategoryRepository;

@@ -1,4 +1,4 @@
-package gov.iti.jets.api.dtos;
+package gov.iti.jets.restapi.dtos;
 
 import java.net.URI;
 

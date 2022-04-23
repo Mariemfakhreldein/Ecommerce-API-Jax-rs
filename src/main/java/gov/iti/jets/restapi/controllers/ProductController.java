@@ -1,11 +1,11 @@
-package gov.iti.jets.api.controllers;
+package gov.iti.jets.restapi.controllers;
 
-import gov.iti.jets.api.exceptionmappers.MyCustomException;
-import gov.iti.jets.api.dtos.ResponseMessage;
-import gov.iti.jets.api.dtos.product.ProductRequestDto;
-import gov.iti.jets.api.dtos.product.ProductResponseDto;
-import gov.iti.jets.api.dtos.product.ProductsListResponseDto;
-import gov.iti.jets.api.mappers.ProductMapper;
+import gov.iti.jets.restapi.exceptionmappers.MyCustomException;
+import gov.iti.jets.restapi.dtos.ResponseMessage;
+import gov.iti.jets.restapi.dtos.product.ProductRequestDto;
+import gov.iti.jets.restapi.dtos.product.ProductResponseDto;
+import gov.iti.jets.restapi.dtos.product.ProductsListResponseDto;
+import gov.iti.jets.restapi.mappers.ProductMapper;
 import gov.iti.jets.domain.services.CategoryService;
 import gov.iti.jets.domain.services.ProductService;
 import gov.iti.jets.domain.models.Category;

@@ -3,16 +3,12 @@ package gov.iti.jets.domain.services;
 import java.util.List;
 import java.util.Optional;
 
-import gov.iti.jets.api.dtos.product.ProductRequestDto;
-import gov.iti.jets.api.dtos.product.ProductResponseDto;
-import gov.iti.jets.api.mappers.ProductMapper;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Product;
 import gov.iti.jets.persistence.repositories.ProductRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.ws.rs.core.UriInfo;
 
 public class ProductService {
 

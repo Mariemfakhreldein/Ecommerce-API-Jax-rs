@@ -1,4 +1,4 @@
-package gov.iti.jets.api.dtos.category;
+package gov.iti.jets.restapi.dtos.category;
 
 public class CategoryRequestDto {
 

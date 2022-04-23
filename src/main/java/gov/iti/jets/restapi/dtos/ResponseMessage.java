@@ -1,19 +1,20 @@
-package gov.iti.jets.api.dtos;
+package gov.iti.jets.restapi.dtos;
 
-public class ExceptionMessage {
+public class ResponseMessage {
+
 
     private int status;
     private String message;
     private String cause;
 
-    
-    public ExceptionMessage(int status, String message) {
+
+    public ResponseMessage(int status, String message) {
         this.status = status;
         this.message = message;
     }
 
 
-    public ExceptionMessage() {
+    public ResponseMessage() {
     }
 
 
@@ -37,11 +38,5 @@ public class ExceptionMessage {
     }
 
 
-    @Override
-    public String toString() {
-        return "ExceptionMessage [message=" + message + ", status=" + status + "]";
-    }
-    
-    
-    
+
 }

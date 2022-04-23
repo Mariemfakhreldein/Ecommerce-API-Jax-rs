@@ -1,13 +1,13 @@
-package gov.iti.jets.api.mappers;
+package gov.iti.jets.restapi.mappers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import gov.iti.jets.api.controllers.CategoryController;
-import gov.iti.jets.api.controllers.ProductController;
-import gov.iti.jets.api.dtos.product.ProductCategory;
-import gov.iti.jets.api.dtos.product.ProductResponseDto;
+import gov.iti.jets.restapi.controllers.CategoryController;
+import gov.iti.jets.restapi.controllers.ProductController;
+import gov.iti.jets.restapi.dtos.product.ProductCategory;
+import gov.iti.jets.restapi.dtos.product.ProductResponseDto;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.domain.models.Product;
 import jakarta.ws.rs.core.UriInfo;

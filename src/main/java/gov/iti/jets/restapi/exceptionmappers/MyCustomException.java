@@ -1,4 +1,4 @@
-package gov.iti.jets.api.exceptionmappers;
+package gov.iti.jets.restapi.exceptionmappers;
 
 public class MyCustomException extends Throwable{
     private Exception e;
