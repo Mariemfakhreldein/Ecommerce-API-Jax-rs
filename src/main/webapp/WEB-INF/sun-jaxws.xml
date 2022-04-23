@@ -3,4 +3,10 @@
             name="ProductWebService"
             implementation="gov.iti.jets.soapapi.managers.ProductManager"
             url-pattern="/soap/products"/>
+
+    <endpoint
+            name="CategoryWebService"
+            implementation="gov.iti.jets.soapapi.managers.CategoryManager"
+            url-pattern="/soap/categories"/>
+
 </endpoints>

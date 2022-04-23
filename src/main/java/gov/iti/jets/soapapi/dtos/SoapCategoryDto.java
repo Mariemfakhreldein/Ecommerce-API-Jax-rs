@@ -1,8 +1,12 @@
 package gov.iti.jets.soapapi.dtos;
 
-public class SoapProductCategory {
+public class SoapCategoryDto {
     private int id;
     private String name;
+
+    public SoapCategoryDto(){
+
+    }
 
     public int getId() {
         return id;
@@ -20,7 +24,7 @@ public class SoapProductCategory {
         this.name = name;
     }
 
-    public SoapProductCategory( int id, String name ) {
+    public SoapCategoryDto( int id, String name ) {
         this.id = id;
         this.name = name;
     }

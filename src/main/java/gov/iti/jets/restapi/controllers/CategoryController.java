@@ -42,17 +42,12 @@ public class CategoryController {
 
             return Response.ok().entity( entity ).build();
         } catch ( Exception e ) {
-            e.printStackTrace();
             throw new MyCustomException( e, "Couldn't retrieve categories" );
         }
     }
 
-
-
     @POST
     public Response addNewCategory( CategoryDto newCategory) throws MyCustomException {
-
-        System.out.println(newCategory);
 
         try {
             Category category = new Category(newCategory.getName());
@@ -63,7 +58,6 @@ public class CategoryController {
 
         } catch (Exception e) {
             throw new MyCustomException( e, "Category not added");
-
         }
 
     }
@@ -76,16 +70,13 @@ public class CategoryController {
 
            List<Product> products = CategoryService.getCategoryProducts( categoryId );
 
-            System.out.println( products );
             GenericEntity<List<CategoryProduct>> entity = new GenericEntity<>( RestMapper.categoryProductMapper(products, uriInfo)) {
             };
 
             return Response.ok().entity( entity ).build();
         } catch ( Exception e ) {
-            e.printStackTrace();
             throw new MyCustomException( e, "Couldn't retrieve products" );
         }
-
 
     }
 

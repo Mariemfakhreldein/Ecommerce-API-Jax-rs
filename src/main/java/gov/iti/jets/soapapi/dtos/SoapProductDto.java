@@ -11,7 +11,7 @@ public class SoapProductDto {
     private String description;
     private BigDecimal price;
 
-    private List<SoapProductCategory> categories;
+    private List<SoapCategoryDto> categories;
 
     public SoapProductDto( String name, String description, BigDecimal price ) {
         this.name = name;
@@ -20,7 +20,7 @@ public class SoapProductDto {
         this.categories = new ArrayList<>();
     }
 
-    public SoapProductDto( int id, String name, String description, BigDecimal price, List<SoapProductCategory> categories) {
+    public SoapProductDto( int id, String name, String description, BigDecimal price, List<SoapCategoryDto> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -60,11 +60,11 @@ public class SoapProductDto {
         this.price = price;
     }
 
-    public List<SoapProductCategory> getCategories() {
+    public List<SoapCategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<SoapProductCategory> categories){
+    public void setCategories(List<SoapCategoryDto> categories){
         this.categories = categories;
     }
 

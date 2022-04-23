@@ -74,6 +74,10 @@ public class CategoryService {
         EntityManager em = JpaUtil.createEntityManager();
         CategoryRepository cr = new CategoryRepository( em );
 
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         cr.deleteById( category.getId() );
+        tx.commit();
+        em.close();
     }
 }
