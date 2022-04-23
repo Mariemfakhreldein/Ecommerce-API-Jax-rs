@@ -87,4 +87,14 @@ public class Product {
         this.categories.remove( category );
         category.getProducts().remove( this );
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", categories=" + categories +
+                '}';
+    }
+
+
 }

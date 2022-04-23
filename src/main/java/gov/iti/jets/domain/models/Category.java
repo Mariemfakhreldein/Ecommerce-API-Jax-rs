@@ -51,4 +51,26 @@ public class Category {
         return products;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        return ( (Category) o ).getId() == (this.id);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return id * 12345;
+    }
 }

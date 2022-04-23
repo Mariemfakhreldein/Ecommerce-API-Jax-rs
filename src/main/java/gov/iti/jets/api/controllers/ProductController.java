@@ -6,14 +6,10 @@ import gov.iti.jets.api.dtos.product.ProductRequestDto;
 import gov.iti.jets.api.dtos.product.ProductResponseDto;
 import gov.iti.jets.api.dtos.product.ProductsListResponseDto;
 import gov.iti.jets.api.mappers.ProductMapper;
+import gov.iti.jets.domain.services.CategoryService;
 import gov.iti.jets.domain.services.ProductService;
-import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.domain.models.Product;
-import gov.iti.jets.persistence.repositories.CategoryRepository;
-import gov.iti.jets.persistence.repositories.ProductRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.GenericEntity;
@@ -23,7 +19,6 @@ import jakarta.ws.rs.core.Response.Status;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Path("products")
 @Produces({ "application/json", "application/xml" })
@@ -114,97 +109,63 @@ public class ProductController {
         }
     }
 
+    @DELETE
+    @Path( "{pid}" )
+    public Response deleteProduct(@PathParam( "pid" ) int productId, @Context UriInfo uriInfo ) throws MyCustomException {
+
+        try{
+
+            Product productToDelete = ProductService.getProductById( productId );
+
+            ProductService.deleteProduct(productId);
+
+            return Response.ok().entity(productToDelete).build();
+
+        }catch(Exception ex){
+            throw new MyCustomException( ex, "Couldn't delete product" );
+        }
+    }
 
     @POST
     @Path("{pid}/categories/{cid}")
-    public Response addCategoryToProduct(@PathParam("pid") int productId, @PathParam("cid") int categoryId) {
+    public Response addCategoryToProduct(@PathParam("pid") int productId, @PathParam("cid") int categoryId, @Context UriInfo uriInfo) throws MyCustomException {
 
-        EntityManager em = JpaUtil.createEntityManager();
-        ProductRepository pr = new ProductRepository(em);
-        CategoryRepository cp = new CategoryRepository(em);
         try {
 
-            Optional<Product> optionalProduct = pr.findOne(productId);
-            Optional<Category> optionalCategory = cp.findOne(categoryId);
+           Product productEntity = ProductService.getProductById( productId );
+           Category categoryEntity = CategoryService.getCategoryById( categoryId );
 
-            if (optionalProduct.isPresent() && optionalCategory.isPresent()) {
-                Product product = optionalProduct.get();
-                Category category = optionalCategory.get();
 
-                product.addCategoryToProduct(category);
+           ProductService.addCategoryToProduct(productEntity, categoryEntity);
 
-                EntityTransaction tx = em.getTransaction();
-                tx.begin();
-                pr.update(product);
-                tx.commit();
-                em.close();
-                return Response.ok().entity(product).build();
+           ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse(productEntity, uriInfo);
 
-            } else {
-                throw new IllegalArgumentException("Product or Category doesn't exist!");
-            }
+           return Response.ok().entity(productResponse).build();
+
         } catch (Exception e) {
-            return Response.notModified(e.getMessage()).build();
+            throw new MyCustomException(e, "Couldn't add category to product");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @DELETE
     @Path("{pid}/categories/{cid}")
-    public Response removeCategoryFromProduct(@PathParam("pid") int productId, @PathParam("cid") int categoryId) {
+    public Response removeCategoryFromProduct(@PathParam("pid") int productId, @PathParam("cid") int categoryId, @Context UriInfo uriInfo) throws MyCustomException {
 
-        EntityManager em = JpaUtil.createEntityManager();
-        ProductRepository pr = new ProductRepository(em);
-        CategoryRepository cp = new CategoryRepository(em);
         try {
-            Optional<Product> optionalProduct = pr.findOne(productId);
-            Optional<Category> optionalCategory = cp.findOne(categoryId);
+            Product productEntity = ProductService.getProductById( productId );
+            Category categoryEntity = CategoryService.getCategoryById( categoryId );
 
-            if (optionalProduct.isPresent() && optionalCategory.isPresent()) {
-                Product product = optionalProduct.get();
-                Category category = optionalCategory.get();
 
-                product.removeCategoryFromProduct(category);
+            ProductService.removeCategoryFromProduct(productEntity, categoryEntity);
 
-                EntityTransaction tx = em.getTransaction();
-                tx.begin();
-                pr.update(product);
-                tx.commit();
-                em.close();
-                return Response.ok().entity(product).build();
+            ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse(productEntity, uriInfo);
 
-            } else {
-                throw new IllegalArgumentException("Category or Product doesn't exist!");
-            }
+            return Response.ok().entity(productResponse).build();
+
         } catch (Exception e) {
-            return Response.notModified(e.getMessage()).build();
+            throw new MyCustomException(e, "Couldn't remove category from product");
         }
     }
-
 
     private String getSelfUri(UriInfo uriInfo){
         return   uriInfo.getBaseUriBuilder()
@@ -212,7 +173,5 @@ public class ProductController {
                 .build()
                 .toString();
     }
-
-
 
 }

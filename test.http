@@ -13,7 +13,7 @@ GET /rest/api/date/tomorrow
 Host: localhost:8080
 
 ###
-GET /rest/api/categories/1
+GET /rest/api/categories
 Host: localhost:8080
 
 ###
@@ -34,7 +34,13 @@ GET /rest/api/products
 Host: localhost:8181
 
 ###
-GET /rest/api/products/1
+DELETE  /rest/api/products/1
+Host: localhost:8181
+
+
+
+###
+DELETE /rest/api/products/1/categories/1
 Host: localhost:8181
 
 
@@ -62,7 +68,19 @@ Content-Type: application/json
 }
 
 ###
-PUT /rest/api/products/53
+PUT /rest/api/products/1
+Host: localhost:8181
+Content-Type: application/json
+
+{
+    "name":"IntellijIdeaUltimate",
+    "description":"updated product",
+    "price":8977854
+}
+
+
+###
+POST  /rest/api/products/53/categories/
 Host: localhost:8181
 Content-Type: application/json
 

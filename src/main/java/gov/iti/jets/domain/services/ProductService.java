@@ -6,6 +6,7 @@ import java.util.Optional;
 import gov.iti.jets.api.dtos.product.ProductRequestDto;
 import gov.iti.jets.api.dtos.product.ProductResponseDto;
 import gov.iti.jets.api.mappers.ProductMapper;
+import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Product;
 import gov.iti.jets.persistence.repositories.ProductRepository;
@@ -65,5 +66,32 @@ public class ProductService {
         em.close();
     }
 
+    public static void deleteProduct(int productId){
 
+        EntityManager em = JpaUtil.createEntityManager();
+        ProductRepository pr = new ProductRepository(em);
+        EntityTransaction tx = em.getTransaction();
+
+        tx.begin();
+        pr.deleteById( productId );
+        tx.commit();
+
+        em.close();
+    }
+
+
+    public static void addCategoryToProduct( Product productEntity, Category categoryEntity ) {
+
+        productEntity.addCategoryToProduct( categoryEntity );
+        System.out.println(productEntity);
+        updateProduct( productEntity );
+
+    }
+
+    public static void removeCategoryFromProduct( Product productEntity, Category categoryEntity ) {
+
+        productEntity.removeCategoryFromProduct( categoryEntity );
+
+        updateProduct( productEntity );
+    }
 }
