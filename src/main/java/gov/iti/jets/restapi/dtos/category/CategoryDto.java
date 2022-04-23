@@ -1,4 +1,4 @@
-package gov.iti.jets.restapi.dtos.product;
+package gov.iti.jets.restapi.dtos.category;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
-public class ProductCategory implements Serializable{
+public class CategoryDto implements Serializable{
 
     private int id;
     private String name;
@@ -19,12 +19,12 @@ public class ProductCategory implements Serializable{
     @JsonbTypeAdapter( LinkJsonbAdapter.class )
     List<Link> links = new ArrayList<>();
 
-    public ProductCategory(int id, String name) {
+    public CategoryDto( int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public ProductCategory(){}
+    public CategoryDto(){}
 
     public int getId() {
         return id;

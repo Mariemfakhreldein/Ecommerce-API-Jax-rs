@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gov.iti.jets.restapi.adapters.LinkJsonbAdapter;
+import gov.iti.jets.restapi.dtos.category.CategoryDto;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
 import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.ws.rs.core.Link;
@@ -23,7 +24,7 @@ public class ProductResponseDto implements Serializable{
 
     @XmlElementWrapper
     @XmlElement(name = "category")
-    private List<ProductCategory> categories;
+    private List<CategoryDto> categories;
 
     @JsonbTypeAdapter(LinkJsonbAdapter.class)
     List<Link> links = new ArrayList<>();
@@ -69,11 +70,11 @@ public class ProductResponseDto implements Serializable{
     }
     
     @XmlTransient
-    public List<ProductCategory> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<ProductCategory> categories){
+    public void setCategories(List<CategoryDto> categories){
         this.categories = categories;
     }
 

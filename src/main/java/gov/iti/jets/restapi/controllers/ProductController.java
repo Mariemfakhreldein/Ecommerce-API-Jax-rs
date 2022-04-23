@@ -5,7 +5,7 @@ import gov.iti.jets.restapi.dtos.ResponseMessage;
 import gov.iti.jets.restapi.dtos.product.ProductRequestDto;
 import gov.iti.jets.restapi.dtos.product.ProductResponseDto;
 import gov.iti.jets.restapi.dtos.product.ProductsListResponseDto;
-import gov.iti.jets.restapi.mappers.ProductMapper;
+import gov.iti.jets.restapi.mappers.RestMapper;
 import gov.iti.jets.domain.services.CategoryService;
 import gov.iti.jets.domain.services.ProductService;
 import gov.iti.jets.domain.models.Category;
@@ -33,7 +33,7 @@ public class ProductController {
         try{
             List<ProductResponseDto> productResponseList = new ArrayList<>();
 
-            ProductService.getAllProducts().forEach((product) -> productResponseList.add( ProductMapper.mapProductToProductResponse(product, uriInfo)));
+            ProductService.getAllProducts().forEach((product) -> productResponseList.add( RestMapper.mapProductToProductResponse(product, uriInfo)));
 
             productsList.setProductList( productResponseList );
 
@@ -80,7 +80,7 @@ public class ProductController {
         try{
             Product retrievedProduct = ProductService.getProductById(productId);
 
-            ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse( retrievedProduct, uriInfo );
+            ProductResponseDto productResponse = RestMapper.mapProductToProductResponse( retrievedProduct, uriInfo );
 
             return Response.ok().entity(productResponse).build();
         } catch ( Exception e ){
@@ -138,7 +138,7 @@ public class ProductController {
 
            ProductService.addCategoryToProduct(productEntity, categoryEntity);
 
-           ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse(productEntity, uriInfo);
+           ProductResponseDto productResponse = RestMapper.mapProductToProductResponse(productEntity, uriInfo);
 
            return Response.ok().entity(productResponse).build();
 
@@ -158,7 +158,7 @@ public class ProductController {
 
             ProductService.removeCategoryFromProduct(productEntity, categoryEntity);
 
-            ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse(productEntity, uriInfo);
+            ProductResponseDto productResponse = RestMapper.mapProductToProductResponse(productEntity, uriInfo);
 
             return Response.ok().entity(productResponse).build();
 

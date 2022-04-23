@@ -17,6 +17,19 @@ GET /rest/api/categories
 Host: localhost:8080
 
 ###
+GET /api/api/categories
+Host: localhost:8181
+
+###
+POST /rest/api/categories
+Host: localhost:8181
+Content-Type: applicatoin/json
+
+{"name":"anotherTestCategory"}
+
+
+
+###
 POST /rest/api/categories
 Host: localhost:8080
 Content-Type: applicatoin/json
@@ -30,17 +43,21 @@ Host: localhost:8080
 
 
 ###
-GET /rest/api/products
+GET /api/api/products
 Host: localhost:8181
 
 ###
-DELETE  /rest/api/products/1
+GET  /api/api/products/152
 Host: localhost:8181
 
 
 
 ###
-POST /rest/api/products/1/categories/1
+POST /api/api/products/152/categories/2
+Host: localhost:8181
+
+###
+DELETE /api/api/categories/2
 Host: localhost:8181
 
 
