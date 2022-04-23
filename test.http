@@ -61,6 +61,19 @@ Content-Type: application/json
     "price":500
 }
 
+###
+PUT /rest/api/products/53
+Host: localhost:8181
+Content-Type: application/json
+
+{
+    "name":"product2",
+    "description":"updated product",
+    "price":8977854
+}
+
+
+
 
 ###
 GET /rest/api/users

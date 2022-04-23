@@ -3,12 +3,10 @@ package gov.iti.jets.api.controllers;
 import java.util.Optional;
 
 import gov.iti.jets.persistence.JpaUtil;
-import gov.iti.jets.persistence.entities.Order;
-import gov.iti.jets.persistence.entities.User;
+import gov.iti.jets.domain.models.Order;
 import gov.iti.jets.persistence.repositories.OrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;

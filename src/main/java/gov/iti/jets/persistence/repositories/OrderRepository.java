@@ -1,6 +1,6 @@
 package gov.iti.jets.persistence.repositories;
 
-import gov.iti.jets.persistence.entities.Order;
+import gov.iti.jets.domain.models.Order;
 import jakarta.persistence.EntityManager;
 
 public class OrderRepository extends AbstractRepository<Order>{

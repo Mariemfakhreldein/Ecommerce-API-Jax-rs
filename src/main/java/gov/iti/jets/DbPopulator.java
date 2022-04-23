@@ -1,8 +1,8 @@
 package gov.iti.jets;
 
 import gov.iti.jets.persistence.JpaUtil;
-import gov.iti.jets.persistence.entities.Category;
-import gov.iti.jets.persistence.entities.Product;
+import gov.iti.jets.domain.models.Category;
+import gov.iti.jets.domain.models.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 

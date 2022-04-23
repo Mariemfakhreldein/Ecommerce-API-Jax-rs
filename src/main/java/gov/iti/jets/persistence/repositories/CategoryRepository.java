@@ -1,7 +1,6 @@
 package gov.iti.jets.persistence.repositories;
 
-import gov.iti.jets.persistence.entities.Category;
-import gov.iti.jets.persistence.entities.Product;
+import gov.iti.jets.domain.models.Category;
 import jakarta.persistence.EntityManager;
 
 public class CategoryRepository extends AbstractRepository{

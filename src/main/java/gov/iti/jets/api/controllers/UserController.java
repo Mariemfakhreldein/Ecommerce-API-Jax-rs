@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import gov.iti.jets.persistence.JpaUtil;
-import gov.iti.jets.persistence.entities.User;
+import gov.iti.jets.domain.models.User;
 import gov.iti.jets.persistence.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

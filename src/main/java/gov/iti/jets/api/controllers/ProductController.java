@@ -1,15 +1,15 @@
 package gov.iti.jets.api.controllers;
 
 import gov.iti.jets.api.exceptionmappers.MyCustomException;
-import gov.iti.jets.api.exceptionmappers.ServerExceptionsMapper;
-import gov.iti.jets.domain.dtos.ResponseMessage;
-import gov.iti.jets.domain.dtos.product.ProductRequestDto;
-import gov.iti.jets.domain.dtos.product.ProductResponseDto;
-import gov.iti.jets.domain.dtos.product.ProductsListResponseDto;
+import gov.iti.jets.api.dtos.ResponseMessage;
+import gov.iti.jets.api.dtos.product.ProductRequestDto;
+import gov.iti.jets.api.dtos.product.ProductResponseDto;
+import gov.iti.jets.api.dtos.product.ProductsListResponseDto;
+import gov.iti.jets.api.mappers.ProductMapper;
 import gov.iti.jets.domain.services.ProductService;
 import gov.iti.jets.persistence.JpaUtil;
-import gov.iti.jets.persistence.entities.Category;
-import gov.iti.jets.persistence.entities.Product;
+import gov.iti.jets.domain.models.Category;
+import gov.iti.jets.domain.models.Product;
 import gov.iti.jets.persistence.repositories.CategoryRepository;
 import gov.iti.jets.persistence.repositories.ProductRepository;
 import jakarta.persistence.EntityManager;
@@ -21,6 +21,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.core.Response.Status;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,26 +32,26 @@ public class ProductController {
 
     @GET
     public Response getAllProducts(@Context UriInfo uriInfo) throws MyCustomException {
-        ProductsListResponseDto productsList = new ProductsListResponseDto();
+
+            ProductsListResponseDto productsList = new ProductsListResponseDto();
 
         try{
-            productsList.setProductList(ProductService.getAllProducts(uriInfo));
+            List<ProductResponseDto> productResponseList = new ArrayList<>();
+
+            ProductService.getAllProducts().forEach((product) -> productResponseList.add( ProductMapper.mapProductToProductResponse(product, uriInfo)));
+
+            productsList.setProductList( productResponseList );
+
         }catch(Exception e){
             throw new MyCustomException(e, "There was a problem getting the products");
         }
 
-        String selfUri = uriInfo.getBaseUriBuilder()
-                .path(ProductController.class)
-                .build()
-                .toString();
-        productsList.addLink(selfUri, "self");
-
-        System.out.println("**********************************************"+productsList);
+        productsList.addLink(getSelfUri(uriInfo), "self");
 
         GenericEntity<ProductsListResponseDto> genericProducts = new GenericEntity<>(productsList) {
         };
 
-        return Response.ok().entity(genericProducts).link(selfUri, "self").build();
+        return Response.ok().entity(genericProducts).link(getSelfUri( uriInfo ), "self").build();
     }
     
 
@@ -64,7 +65,9 @@ public class ProductController {
         try {
             System.out.println(productRequestDto);
 
-            ProductService.addNewProduct(productRequestDto);
+            Product newProduct = new Product(productRequestDto.getName(), productRequestDto.getDescription(), productRequestDto.getPrice());
+
+            ProductService.addNewProduct(newProduct);
 
             return Response.ok(new ResponseMessage(Status.FOUND.getStatusCode(),"New product added!!")).build();
 
@@ -80,55 +83,37 @@ public class ProductController {
         System.out.println("ID: " + productId);
 
         try{
+            Product retrievedProduct = ProductService.getProductById(productId);
 
-            ProductResponseDto requestedProduct = ProductService.getProductById(productId, uriInfo);
+            ProductResponseDto productResponse = ProductMapper.mapProductToProductResponse( retrievedProduct, uriInfo );
 
-            return Response.ok().entity(requestedProduct).build();
+            return Response.ok().entity(productResponse).build();
         } catch ( Exception e ){
            throw new MyCustomException( e, "No product with this id" );
         }
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     @PUT
     @Path("{pid}")
-    public Response updateProduct(@PathParam("pid") int productId, ProductRequestDto updatedRequestProduct) {
-        EntityManager em = JpaUtil.createEntityManager();
-        ProductRepository pr = new ProductRepository(em);
-        EntityTransaction tx = em.getTransaction();
+    public Response updateProduct(@PathParam("pid") int productId, ProductRequestDto updatedRequestProduct) throws MyCustomException {
 
         try {
+            Product updatedProduct = ProductService.getProductById( productId );
 
-            Optional<Product> optionalProduct = pr.findOne(productId);
-            Product updatedProduct = optionalProduct.get();
-            System.out.println(updatedProduct);
             updatedProduct.setName(updatedRequestProduct.getName());
             updatedProduct.setDescription(updatedRequestProduct.getDescription());
             updatedProduct.setPrice(updatedRequestProduct.getPrice());
 
-            tx.begin();
-            pr.update(updatedProduct);
-            tx.commit();
+            ProductService.updateProduct( updatedProduct );
 
             return Response.ok("Product updated successfully ").entity(updatedProduct).build();
 
         } catch (Exception e) {
-            return Response.notModified(e.getMessage()).build();
+            throw new MyCustomException( e , "Couldn't update product" );
         }
     }
+
 
     @POST
     @Path("{pid}/categories/{cid}")
@@ -138,6 +123,7 @@ public class ProductController {
         ProductRepository pr = new ProductRepository(em);
         CategoryRepository cp = new CategoryRepository(em);
         try {
+
             Optional<Product> optionalProduct = pr.findOne(productId);
             Optional<Category> optionalCategory = cp.findOne(categoryId);
 
@@ -161,6 +147,31 @@ public class ProductController {
             return Response.notModified(e.getMessage()).build();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @DELETE
     @Path("{pid}/categories/{cid}")
@@ -193,5 +204,15 @@ public class ProductController {
             return Response.notModified(e.getMessage()).build();
         }
     }
+
+
+    private String getSelfUri(UriInfo uriInfo){
+        return   uriInfo.getBaseUriBuilder()
+                .path(ProductController.class)
+                .build()
+                .toString();
+    }
+
+
 
 }

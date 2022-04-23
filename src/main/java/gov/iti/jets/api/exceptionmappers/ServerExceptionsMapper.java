@@ -1,7 +1,6 @@
 package gov.iti.jets.api.exceptionmappers;
 
-import gov.iti.jets.domain.dtos.ExceptionMessage;
-import jakarta.ws.rs.WebApplicationException;
+import gov.iti.jets.api.dtos.ExceptionMessage;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.ext.ExceptionMapper;

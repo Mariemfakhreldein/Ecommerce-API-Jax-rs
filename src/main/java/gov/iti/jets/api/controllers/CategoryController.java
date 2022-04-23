@@ -1,9 +1,8 @@
 package gov.iti.jets.api.controllers;
 
-import gov.iti.jets.domain.dtos.category.CategoryRequestDto;
+import gov.iti.jets.api.dtos.category.CategoryRequestDto;
 import gov.iti.jets.persistence.JpaUtil;
-import gov.iti.jets.persistence.entities.Category;
-import gov.iti.jets.persistence.enums.Status;
+import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.persistence.repositories.CategoryRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -15,11 +14,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.GenericEntity;
 import jakarta.ws.rs.core.Response;
 
-import javax.swing.text.html.parser.Entity;
-
-import org.hibernate.tool.schema.internal.ExceptionHandlerCollectingImpl;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

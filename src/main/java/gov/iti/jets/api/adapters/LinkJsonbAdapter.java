@@ -3,7 +3,7 @@ package gov.iti.jets.api.adapters;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import gov.iti.jets.domain.dtos.AdaptedLink;
+import gov.iti.jets.api.dtos.AdaptedLink;
 import jakarta.json.bind.adapter.JsonbAdapter;
 import jakarta.ws.rs.core.Link;
 
