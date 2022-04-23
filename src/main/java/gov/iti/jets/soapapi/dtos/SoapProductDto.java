@@ -20,12 +20,12 @@ public class SoapProductDto {
         this.categories = new ArrayList<>();
     }
 
-    public SoapProductDto( int id, String name, String description, BigDecimal price) {
+    public SoapProductDto( int id, String name, String description, BigDecimal price, List<SoapProductCategory> categories) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.categories = new ArrayList<>();
+        this.categories = categories;
     }
 
     public SoapProductDto() {
@@ -72,4 +72,14 @@ public class SoapProductDto {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "SoapProductDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", categories=" + categories +
+                '}';
+    }
 }
