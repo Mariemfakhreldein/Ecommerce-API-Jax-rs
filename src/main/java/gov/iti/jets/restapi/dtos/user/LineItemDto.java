@@ -1,6 +1,8 @@
 package gov.iti.jets.restapi.dtos.user;
 
 
+import gov.iti.jets.domain.models.CartLineItem;
+
 public class LineItemDto {
 
     private int id;
