@@ -2,7 +2,9 @@ package gov.iti.jets.domain.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import gov.iti.jets.domain.enums.Status;
 
@@ -13,8 +15,8 @@ public class Order {
     @GeneratedValue
     private int id;
 
-    @OneToMany( mappedBy = "order", fetch = FetchType.EAGER )
-    private List<LineItem> lineItems;
+    @OneToMany( mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderLineItem> lineItems = new ArrayList<>();
 
     @ManyToOne
     private User maker;
@@ -25,11 +27,14 @@ public class Order {
     public Order() {
     }
 
-    // public Order( Cart cart ) {
-    //     this.lineItems = List.copyOf( cart.getLineItems() );
-    //     this.maker = cart.getOwner();
-    //     this.status = Status.PENDING;
-    // }
+     public Order( Cart cart ) {
+        cart.getLineItems().forEach( item -> {
+             addLineItemToOrder( new OrderLineItem(item.getProduct(), item.getQuantity()) );
+         } );
+
+         this.maker = cart.getOwner();
+         this.status = Status.PENDING;
+     }
 
     public User getMaker() {
         return maker;
@@ -39,11 +44,11 @@ public class Order {
         return id;
     }
 
-    public List<LineItem> getLineItems() {
+    public List<OrderLineItem> getLineItems() {
         return lineItems;
     }
 
-    public void setLineItems( List<LineItem> lineItems ) {
+    public void setLineItems( List<OrderLineItem> lineItems ) {
         this.lineItems = lineItems;
     }
 
@@ -59,8 +64,19 @@ public class Order {
         this.status = status;
     }
 
-    public void addLineItemToOrder(LineItem lineItem){
+    public void addLineItemToOrder( OrderLineItem lineItem){
         this.lineItems.add( lineItem );
         lineItem.setOrder( this );
+    }
+
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", lineItems=" + lineItems +
+                ", maker=" + maker.getId() +
+                ", status=" + status +
+                '}';
     }
 }

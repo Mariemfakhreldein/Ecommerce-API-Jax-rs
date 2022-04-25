@@ -1,5 +1,6 @@
-package gov.iti.jets.restapi.dtos.category;
+package gov.iti.jets.restapi.dtos.user;
 
+import gov.iti.jets.domain.enums.Status;
 import gov.iti.jets.restapi.adapters.LinkJsonbAdapter;
 import jakarta.json.bind.annotation.JsonbTypeAdapter;
 import jakarta.ws.rs.core.Link;
@@ -10,20 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
-public class CategoryProduct {
+public class OrderDto {
+
     private int id;
-    private String description;
-    private String name;
+    private Status status;
+    private List<LineItemDto> lineItemDtoList;
 
 
     @JsonbTypeAdapter( LinkJsonbAdapter.class)
     List<Link> links = new ArrayList<>();
 
-    public CategoryProduct( int id, String description, String name ) {
-        this.id = id;
-        this.description = description;
-        this.name = name;
-    }
 
     public int getId() {
         return id;
@@ -33,22 +30,22 @@ public class CategoryProduct {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public List<LineItemDto> getLineItemDtoList() {
+        return lineItemDtoList;
     }
 
-    public void setDescription( String description ) {
-        this.description = description;
+    public void setLineItemDtoList( List<LineItemDto> lineItemDtoList ) {
+        this.lineItemDtoList = lineItemDtoList;
     }
 
-    public String getName() {
-        return name;
+
+    public Status getStatus() {
+        return status;
     }
 
-    public void setName( String name ) {
-        this.name = name;
+    public void setStatus( Status status ) {
+        this.status = status;
     }
-
 
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
     public List<Link> getLinks() {
@@ -65,13 +62,4 @@ public class CategoryProduct {
     }
 
 
-
-    @Override
-    public String toString() {
-        return "CategoryProduct{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

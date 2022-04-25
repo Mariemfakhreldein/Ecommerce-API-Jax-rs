@@ -5,13 +5,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import gov.iti.jets.domain.models.*;
 import gov.iti.jets.restapi.controllers.CategoryController;
+import gov.iti.jets.restapi.controllers.OrderController;
 import gov.iti.jets.restapi.controllers.ProductController;
+import gov.iti.jets.restapi.controllers.UserController;
 import gov.iti.jets.restapi.dtos.category.CategoryDto;
 import gov.iti.jets.restapi.dtos.category.CategoryProduct;
 import gov.iti.jets.restapi.dtos.product.ProductResponseDto;
-import gov.iti.jets.domain.models.Category;
-import gov.iti.jets.domain.models.Product;
+import gov.iti.jets.restapi.dtos.user.LineItemDto;
+import gov.iti.jets.restapi.dtos.user.OrderDto;
+import gov.iti.jets.restapi.dtos.user.UserDto;
 import jakarta.ws.rs.core.UriInfo;
 
 public class RestMapper {
@@ -57,5 +61,52 @@ public class RestMapper {
 
     return categoryProducts;
 }
+
+public static UserDto mapUserToUserDto( User user, UriInfo uriInfo){
+        UserDto userDto = new UserDto(user);
+        addSelfUriToUser( userDto, uriInfo );
+        addCartUriToUser( userDto, uriInfo );
+        return userDto;
+}
+
+private static void addSelfUriToUser(UserDto user, UriInfo uriInfo){
+    String selfUri = uriInfo.getAbsolutePathBuilder().path( UserController.class).path(Long.toString(user.getId())).build().toString();
+
+    user.addLink( selfUri, "self" );
+
+}
+
+
+    private static void addCartUriToUser(UserDto user, UriInfo uriInfo){
+        String cartUri = uriInfo.getAbsolutePathBuilder().path( UserController.class).path(Long.toString(user.getId())).path( "cart" ).build().toString();
+
+        user.addLink( cartUri, "User cart" );
+
+    }
+
+
+
+    public static List<LineItemDto> mapLineItemsToLineItemDtos( Set<CartLineItem> lineItems){
+        return lineItems.stream().map( lineItem -> new LineItemDto(lineItem.getId(), lineItem.getProduct().getId(), lineItem.getQuantity()) ).collect( Collectors.toList());
+    }
+
+    public static List<LineItemDto> mapLineItemsToLineItemDtos( List<OrderLineItem> lineItems){
+        return lineItems.stream().map( lineItem -> new LineItemDto(lineItem.getId(), lineItem.getProduct().getId(), lineItem.getQuantity()) ).collect( Collectors.toList());
+    }
+
+
+    public static OrderDto mapOrderToOrderDto( Order order, UriInfo uriInfo){
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId( order.getId() );
+        orderDto.setLineItemDtoList( mapLineItemsToLineItemDtos( order.getLineItems() ) );
+        orderDto.setStatus( order.getStatus() );
+        String selfUri = uriInfo.getAbsolutePathBuilder().path( OrderController.class).path(Long.toString(order.getId())).build().toString();
+
+        orderDto.addLink( selfUri, "self" );
+
+
+
+        return orderDto;
+    }
 
 }

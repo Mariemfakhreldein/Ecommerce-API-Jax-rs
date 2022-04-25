@@ -2,8 +2,10 @@ package gov.iti.jets.domain.models;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
-public class LineItem {
+public class OrderLineItem {
 
     @Id
     @GeneratedValue
@@ -14,10 +16,6 @@ public class LineItem {
 
     private int quantity;
 
-    // @ManyToOne
-    // @JoinColumn( name = "cart_id" )
-    // private Cart cart;
-
     @ManyToOne
     @JoinColumn( name = "order_id" )
     private Order order;
@@ -26,10 +24,10 @@ public class LineItem {
         return order;
     }
 
-    public LineItem() {
+    public OrderLineItem() {
     }
 
-    public LineItem( Product product, int quantity ) {
+    public OrderLineItem( Product product, int quantity ) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -37,10 +35,6 @@ public class LineItem {
     public Product getProduct() {
         return product;
     }
-
-    // public Cart getCart() {
-    //     return cart;
-    // }
 
     public int getId() {
         return id;
@@ -58,11 +52,22 @@ public class LineItem {
         this.quantity = quantity;
     }
 
-    // public void setCart( Cart cart ) {
-    //     this.cart = cart;
-    // }
-
     public void setOrder( Order order ) {
         this.order = order;
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+
+        CartLineItem lineItem = (CartLineItem) o;
+
+        return product.getId() == product.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(product.getId());
     }
 }

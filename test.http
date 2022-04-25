@@ -109,24 +109,96 @@ Content-Type: application/json
 
 
 
+###
+GET /api/api/users
+Host: localhost:8181
+Accept: application/json
+
+
 
 ###
-GET /rest/api/users
-Host: localhost:8080
-
+GET /api/api/users
+Host: localhost:8181
+Accept: application/json
 
 ###
-POST /rest/api/users
-Host: localhost:8080
+POST /api/api/users
+Host: localhost:8181
 Content-Type: application/json
 
 {
-    "firstName":"mariem",
-    "lastName":"mohamed",
-    "email":"mariem@gmail.com",
-    "role":"CUSTOMER"
+    "firstName":"mario",
+    "lastName":"super",
+    "email":"mariooo@gmail.com",
+    "role":"ADMIN"
 }
 
+
+
+###
+PUT  /api/api/users/52
+Host: localhost:8181
+Content-Type: application/json
+
+{
+    "firstName":"marieeeeeeeeeeeem",
+    "lastName":"hooolaaaa",
+    "email":"ooo@gmail.com",
+    "role":"ADMIN"
+}
+
+
+###
+DELETE  /api/api/users/53
+Host: localhost:8181
+
+
+###
+GET  /api/api/users/1/cart
+Host: localhost:8181
+
+
+
+###
+DELETE   /api/api/users/1/cart/1
+Host: localhost:8181
+
+
+
+###
+POST  /api/api/users/1/cart
+Host: localhost:8181
+Content-Type: application/json
+
+{
+    "productId": 1,
+    "quantity":50
+}
+
+
+###
+POST /api/api/users/1/orders
+Host: localhost:8181
+
+
+###
+GET /api/api/users/1/orders
+Host: localhost:8181
+
+
+###
+GET /api/api/orders/1
+Host: localhost:8181
+
+
+###
+PUT /api/api/orders/1
+Host: localhost:8181
+Content-Type: application/json
+
+{
+    "status":"CANCELED"
+}
 
 
 ###

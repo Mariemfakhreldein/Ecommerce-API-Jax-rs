@@ -1,5 +1,7 @@
 package gov.iti.jets;
 
+import gov.iti.jets.domain.enums.Role;
+import gov.iti.jets.domain.models.User;
 import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.domain.models.Product;
@@ -36,6 +38,9 @@ public class DbPopulator {
         products.get( 2 ).addCategoryToProduct( softwareCategory );
         products.get( 2 ).addCategoryToProduct( ideCategory );
 
+        //create user
+
+        User user = new User("mariem", "mohamed", "mariem@gmail.com", Role.ADMIN);
 
         //Persist data
         EntityManager em = JpaUtil.createEntityManager();
@@ -43,8 +48,12 @@ public class DbPopulator {
         tx.begin();
 
         //Persist products
+        em.persist( softwareCategory );
+        em.persist( ideCategory );
+        em.persist( textEditorCategory );
         products.forEach(em::persist);
 
+        em.persist( user );
         //
 
 

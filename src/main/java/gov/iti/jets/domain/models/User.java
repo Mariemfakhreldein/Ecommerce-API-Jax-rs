@@ -21,14 +21,15 @@ public class User {
     @Enumerated( EnumType.STRING )
     private Role role;
 
-    // @OneToOne(mappedBy = "owner")
-    // private Cart cart;
+     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+     private Cart cart;
 
-    @OneToMany(mappedBy = "maker")
+    @OneToMany(mappedBy = "maker", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Order> orders;
 
     public User() {
         orders = new ArrayList<>();
+        this.setCart( new Cart() );
     }
 
 
@@ -38,17 +39,18 @@ public class User {
         this.email = email;
         this.role = role;
         this.orders = new ArrayList<>();
+        this.setCart( new Cart() );
     }
 
 
-    // public Cart getCart() {
-    //     return cart;
-    // }
+     public Cart getCart() {
+         return cart;
+     }
 
-    // public void setCart( Cart cart ) {
-    //     this.cart = cart;
-    //     cart.setOwner(this);
-    // }
+     public void setCart( Cart cart ) {
+         this.cart = cart;
+         cart.setOwner(this);
+     }
 
     public int getId() {
         return id;
@@ -91,6 +93,17 @@ public class User {
         order.setMaker( this );
     }
 
+    public void setId( int id ) {
+        this.id = id;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders( List<Order> orders ) {
+        this.orders = orders;
+    }
 
     @Override
     public String toString() {
