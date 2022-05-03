@@ -1,6 +1,7 @@
 package gov.iti.jets.soapapi.dtos;
 
 import gov.iti.jets.domain.models.CartLineItem;
+import gov.iti.jets.domain.models.OrderLineItem;
 
 public class SoapLineItemDto {
     private int id;
@@ -26,6 +27,12 @@ public class SoapLineItemDto {
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
+    }
+
+    public SoapLineItemDto( OrderLineItem orderLineItem ) {
+        this.id = orderLineItem.getId();
+        this.productId = orderLineItem.getProduct().getId();
+        this.quantity = orderLineItem.getQuantity();
     }
 
     public int getId() {

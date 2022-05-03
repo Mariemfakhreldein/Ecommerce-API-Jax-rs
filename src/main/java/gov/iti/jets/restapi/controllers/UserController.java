@@ -241,7 +241,7 @@ public class UserController {
         } catch(NullPointerException ne){
             throw new MyCustomException( ne, "No user with this id" );
         }catch ( Exception e ){
-            throw new MyCustomException( e, "Order not placed" );
+            throw new MyCustomException( e, "Couldn't retrieve orders" );
         }
     }
 

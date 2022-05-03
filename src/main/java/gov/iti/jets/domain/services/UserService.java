@@ -17,7 +17,14 @@ public class UserService {
         EntityManager em = JpaUtil.createEntityManager();
         UserRepository ur = new UserRepository( em );
 
-        return ur.findAll();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        List<User> result = ur.findAll();
+        tx.commit();
+        em.close();
+
+        return result;
+
     }
 
 
@@ -25,7 +32,11 @@ public class UserService {
         EntityManager em = JpaUtil.createEntityManager();
         UserRepository ur = new UserRepository( em );
 
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         Optional<User> optionalUser = ur.findOne( userId );
+        tx.commit();
+        em.close();
 
         if(optionalUser.isPresent()){
             return optionalUser.get();
@@ -107,7 +118,7 @@ public class UserService {
 
         UserService.updateUser( user );
 
-        System.out.println("updated useer" + user);
-
+        System.out.println("updated user" + user);
+        System.out.println(order.getId());
     }
 }

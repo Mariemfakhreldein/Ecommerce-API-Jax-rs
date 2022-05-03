@@ -16,7 +16,11 @@ public class OrderService {
         EntityManager em = JpaUtil.createEntityManager();
         OrderRepository or = new OrderRepository( em );
 
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         Optional<Order> optionalOrder = or.findOne( orderId );
+        tx.commit();
+        em.close();
 
         if(optionalOrder.isPresent()){
             return optionalOrder.get();

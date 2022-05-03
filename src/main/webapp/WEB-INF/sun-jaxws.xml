@@ -9,4 +9,9 @@
             implementation="gov.iti.jets.soapapi.managers.CategoryManager"
             url-pattern="/soap/categories"/>
 
+    <endpoint
+            name="UserWebService"
+            implementation="gov.iti.jets.soapapi.managers.UserManager"
+            url-pattern="/soap/users"/>
+
 </endpoints>
