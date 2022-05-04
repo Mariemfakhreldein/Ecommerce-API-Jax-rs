@@ -22,7 +22,7 @@ public class Product {
     @GeneratedValue
     private int id;
 
-    @NaturalId
+//    @NaturalId
     private String name;
 
     private String description;
@@ -30,7 +30,7 @@ public class Product {
     @Basic(optional = false)
     private BigDecimal price;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @XmlElementWrapper
     @XmlElement(name = "category")
     private Set<Category> categories;

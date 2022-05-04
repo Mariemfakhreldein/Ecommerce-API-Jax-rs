@@ -19,6 +19,10 @@ public class CategoryProduct {
     @JsonbTypeAdapter( LinkJsonbAdapter.class)
     List<Link> links = new ArrayList<>();
 
+    public CategoryProduct(){
+
+    }
+
     public CategoryProduct( int id, String description, String name ) {
         this.id = id;
         this.description = description;

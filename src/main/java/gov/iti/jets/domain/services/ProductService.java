@@ -17,8 +17,11 @@ public class ProductService {
         EntityManager em = JpaUtil.createEntityManager();
         ProductRepository pr = new ProductRepository(em);
 
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         List<Product> productEntityList = pr.findAll();
-
+        tx.commit();
+        em.close();
 
         return productEntityList;
     }
@@ -41,7 +44,11 @@ public class ProductService {
 
         EntityManager em = JpaUtil.createEntityManager();
         ProductRepository pr = new ProductRepository(em);
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
         Optional<Product>  optionalProduct = pr.findOne(productId);
+        tx.commit();
+        em.close();
         if(optionalProduct.isPresent()){
             return optionalProduct.get();
         }else{

@@ -6,6 +6,7 @@ import gov.iti.jets.domain.services.ProductService;
 import gov.iti.jets.persistence.JpaUtil;
 import gov.iti.jets.domain.models.Category;
 import gov.iti.jets.persistence.repositories.CategoryRepository;
+import gov.iti.jets.restapi.dtos.ResponseMessage;
 import gov.iti.jets.restapi.dtos.category.CategoryDto;
 import gov.iti.jets.restapi.dtos.category.CategoryProduct;
 import gov.iti.jets.restapi.exceptionmappers.MyCustomException;
@@ -91,7 +92,7 @@ public class CategoryController {
 
             CategoryService.deleteCategory(category);
 
-            return Response.ok().entity( "success" ).build();
+            return Response.ok(new ResponseMessage( Response.Status.CREATED.getStatusCode(),"Category deleted!!")).build();
 
         }catch ( Exception e ){
             throw new MyCustomException( e, "couldn't delete category" );

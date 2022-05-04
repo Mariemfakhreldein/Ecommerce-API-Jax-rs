@@ -76,7 +76,7 @@ public class UserController {
 
     @PUT
     @Path("{id}")
-    public Response updateUser(@PathParam("id") int userId,UserDto updatedRequestUser) throws MyCustomException {
+    public Response updateUser(@PathParam("id") int userId,UserDto updatedRequestUser, @Context UriInfo uriInfo) throws MyCustomException {
 
         try{
 
@@ -89,7 +89,7 @@ public class UserController {
 
             UserService.updateUser( existingUser );
 
-            return Response.ok().entity(updatedRequestUser).build();
+            return Response.ok().entity(RestMapper.mapUserToUserDto( existingUser, uriInfo )).build();
 
         }catch(NullPointerException ne){
             throw new MyCustomException( ne, "No user with this id" );

@@ -171,8 +171,8 @@ Host: localhost:8181
 Content-Type: application/json
 
 {
-    "productId": 2,
-    "quantity":50
+    "productId": 1,
+    "quantity":100
 }
 
 
