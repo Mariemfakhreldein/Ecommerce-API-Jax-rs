@@ -5,7 +5,7 @@
 # 📃 Documentation
 [Postman RESTful API Docs](https://documenter.getpostman.com/view/14309492/Uyxbq9MJ)
 
-[SOAP-UI project]()
+[SOAP-UI project](https://github.com/Mariemfakhreldein/Ecommerce-API-REST-SOAP/blob/master/E-CommerceAPI-soapui-project.xml)
 
 # Features
 * HATEOAS
@@ -41,4 +41,4 @@ mvn clean compile tomcat7:redeploy
 * Run DatabasePopulator.java to populate the database with some test data
 
 # Contributors
-* []()
+* [Mariem Mohammed FakrEldein](https://github.com/Mariemfakhreldein)
